@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+:root {
+  background: #f6f1e8;
+  color: #17221d;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+button,
+input {
+  font: inherit;
+}
