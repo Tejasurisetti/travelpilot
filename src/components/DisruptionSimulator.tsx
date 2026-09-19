@@ -52,12 +52,12 @@ export default function DisruptionSimulator({ trip, itemId, onUpdated }: Disrupt
   }
 
   return (
-    <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-[#e4ded3] pt-3">
+    <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-dashed border-[var(--rail-rule)] pt-3">
       <button
         type="button"
         onClick={() => setIsOpen((current) => !current)}
         disabled={isSending}
-        className="inline-flex items-center gap-2 rounded-full border border-[#c27763] px-3 py-1.5 text-xs font-bold text-[#9b3f2d] transition hover:bg-[#f4d8d2] disabled:cursor-wait disabled:opacity-60"
+        className="inline-flex items-center gap-2 rounded-sm border border-[var(--cancel-red)] px-3 py-1.5 text-xs font-bold text-[var(--cancel-red)] transition hover:bg-[#f7d9d5] disabled:cursor-wait disabled:opacity-60"
       >
         <span aria-hidden="true">!</span>
         {isSending ? "Rebuilding..." : "Simulate disruption"}
@@ -70,7 +70,7 @@ export default function DisruptionSimulator({ trip, itemId, onUpdated }: Disrupt
               type="button"
               onClick={() => void simulate(reason)}
               disabled={isSending}
-              className="rounded-full bg-[#f8e9d5] px-3 py-1.5 text-xs font-semibold capitalize text-[#8b572d] transition hover:bg-[#efb366] disabled:opacity-50"
+              className="rounded-sm border border-[#d6b15d] bg-[#fff5d8] px-3 py-1.5 text-xs font-semibold capitalize text-[#78551d] transition hover:bg-[var(--platform-yellow)] disabled:opacity-50"
             >
               {reason}
             </button>

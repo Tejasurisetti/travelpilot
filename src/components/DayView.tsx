@@ -14,9 +14,9 @@ const typeLabels: Record<TripItem["type"], string> = {
 };
 
 const typeStyles: Record<TripItem["type"], string> = {
-  activity: "bg-[#e6eee7] text-[#386044]",
-  transport: "bg-[#e7edf3] text-[#3f5e7b]",
-  accommodation: "bg-[#f8e9d5] text-[#8b572d]",
+  activity: "bg-[#e5eef2] text-[#12304a]",
+  transport: "bg-[#dfe9ee] text-[#245979]",
+  accommodation: "bg-[#f7edcf] text-[#7c551f]",
 };
 
 function formatTime(value: string): string {
@@ -40,7 +40,7 @@ const currency = new Intl.NumberFormat("en-IN", {
 function ItemMarker({ type }: { type: TripItem["type"] }) {
   const marker = type === "activity" ? "A" : type === "transport" ? "T" : "S";
   return (
-    <div className="relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-4 border-[#f6f1e8] bg-[#17221d] text-xs font-bold text-[#f9f4eb]">
+    <div className="relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-4 border-[var(--chart-white)] bg-[var(--rail-blue)] text-xs font-bold text-white">
       {marker}
     </div>
   );
@@ -51,49 +51,49 @@ export default function DayView({ day, trip, onTripUpdated }: DayViewProps) {
     <section aria-labelledby={`day-${day.date}`}>
       <div className="mb-6 flex items-end justify-between gap-4">
         <div>
-          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#a05a2c]">Daily itinerary</p>
-          <h2 id={`day-${day.date}`} className="mt-2 font-serif text-3xl text-[#17221d]">
+          <p className="text-sm font-semibold text-[var(--ticket-brass)]">Daily itinerary</p>
+          <h2 id={`day-${day.date}`} className="font-signage mt-2 text-3xl text-[var(--rail-blue)]">
             {new Intl.DateTimeFormat("en-US", { weekday: "long", month: "long", day: "numeric" }).format(
               new Date(`${day.date}T12:00:00`),
             )}
           </h2>
         </div>
-        <span className="text-sm text-[#6d756e]">{day.items.length} stops</span>
+        <span className="font-board text-sm text-[#52656f]">{day.items.length} stops</span>
       </div>
 
       {day.items.length === 0 ? (
-        <div className="border border-dashed border-[#c8c0b1] px-6 py-12 text-center text-sm text-[#6d756e]">
+        <div className="border border-dashed border-[var(--rail-rule)] px-6 py-12 text-center text-sm text-[#52656f]">
           No stops planned for this day yet.
         </div>
       ) : (
-        <div className="relative space-y-5 before:absolute before:bottom-5 before:left-[18px] before:top-5 before:w-px before:bg-[#c8c0b1]">
+        <div className="relative space-y-5 before:absolute before:bottom-5 before:left-[18px] before:top-5 before:w-px before:bg-[var(--rail-rule)]">
           {day.items.map((item) => (
             <article key={item.id} className="relative flex gap-4">
               <ItemMarker type={item.type} />
-              <div className="min-w-0 flex-1 rounded-2xl border border-[#d7d0c2] bg-[#fbf8f2] p-4 shadow-[0_6px_18px_rgba(44,45,36,0.04)] sm:p-5">
+              <div className={`ticket-stub min-w-0 flex-1 p-4 sm:p-5 ${item.type === "transport" ? "ticket-transport" : item.type === "accommodation" ? "ticket-stay" : ""}`}>
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className={`rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.12em] ${typeStyles[item.type]}`}>
+                      <span className={`rounded-sm px-2.5 py-1 text-xs font-bold ${typeStyles[item.type]}`}>
                         {typeLabels[item.type]}
                       </span>
                       {item.status === "cancelled" && (
-                        <span className="rounded-full bg-[#f4d8d2] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-[#9b3f2d]">
+                        <span className="rounded-sm bg-[#f7d9d5] px-2.5 py-1 text-xs font-bold text-[var(--cancel-red)]">
                           Cancelled
                         </span>
                       )}
                     </div>
-                    <h3 className="mt-3 text-lg font-semibold text-[#17221d]">{item.name}</h3>
+                    <h3 className="font-signage mt-3 text-xl text-[var(--rail-blue)]">{item.name}</h3>
                   </div>
-                  <p className="whitespace-nowrap font-semibold text-[#17221d]">
+                  <p className="font-board whitespace-nowrap text-lg font-semibold text-[var(--rail-blue)]">
                     {item.cost === 0 ? "Free" : currency.format(item.cost)}
                   </p>
                 </div>
-                <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm text-[#6d756e]">
+                <div className="font-board mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm text-[#52656f]">
                   <span>{formatTime(item.startTime)} - {formatTime(item.endTime)}</span>
                   <span>Location {formatLocation(item)}</span>
                 </div>
-                {item.notes && <p className="mt-3 text-sm leading-6 text-[#737970]">{item.notes}</p>}
+                {item.notes && <p className="mt-3 text-sm leading-6 text-[#52656f]">{item.notes}</p>}
                 {item.type === "activity" && item.status !== "cancelled" && (
                   <DisruptionSimulator
                     trip={trip}

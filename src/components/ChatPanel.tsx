@@ -108,30 +108,30 @@ export default function ChatPanel({ trip }: ChatPanelProps) {
   }
 
   return (
-    <section className="mt-12 border-t border-[#d7d0c2] pt-8" aria-labelledby="chat-title">
+    <section className="mt-12 border-t border-[var(--rail-rule)] pt-8" aria-labelledby="chat-title">
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_340px]">
         <div>
-          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#a05a2c]">Ask TravelPilot</p>
-          <h2 id="chat-title" className="mt-2 font-serif text-3xl text-[#17221d]">The itinerary can answer back.</h2>
+          <p className="text-sm font-semibold text-[var(--ticket-brass)]">Ask TravelPilot</p>
+          <h2 id="chat-title" className="font-signage mt-2 text-3xl text-[var(--rail-blue)]">The itinerary can answer back.</h2>
           <div className="mt-6 min-h-40 space-y-4">
             {messages.length === 0 && (
-              <p className="max-w-xl text-sm leading-6 text-[#6d756e]">
+              <p className="max-w-xl text-sm leading-6 text-[#52656f]">
                 Ask about timing, nearby activities, conflicts, or what changes when a plan moves.
               </p>
             )}
             {messages.map((message) => (
               <div key={message.id} className={`max-w-2xl ${message.role === "user" ? "ml-auto" : "mr-auto"}`}>
-                <div className={`rounded-2xl px-4 py-3 text-sm leading-6 ${message.role === "user" ? "bg-[#17221d] text-[#f9f4eb]" : "border border-[#d7d0c2] bg-[#fbf8f2] text-[#303b33]"}`}>
+                <div className={`px-4 py-3 text-sm leading-6 ${message.role === "user" ? "bg-[var(--rail-blue)] text-white" : "border border-[var(--rail-rule)] bg-white text-[var(--rail-ink)]"}`}>
                   {message.text}
                 </div>
                 {message.role === "assistant" && message.toolLog && message.toolLog.length > 0 && (
-                  <details className="mt-2 text-xs text-[#6d756e]">
-                    <summary className="cursor-pointer select-none font-semibold text-[#8b572d]">🔧 Agent reasoning trace</summary>
-                    <div className="mt-2 border-l border-[#c8c0b1] pl-3">
+                  <details className="mt-2 text-xs text-[#52656f]">
+                    <summary className="cursor-pointer select-none font-semibold text-[var(--ticket-brass)]">🔧 Agent reasoning trace</summary>
+                    <div className="mt-2 border-l border-[var(--rail-rule)] pl-3">
                       {message.toolLog.map((entry, index) => (
                         <div key={`${entry.toolName}-${index}`} className="py-1">
                           <p>{toolTrace(entry)}</p>
-                          <p className="mt-0.5 font-mono text-[10px] text-[#8b918a]">{formatArguments(entry.arguments)}</p>
+                          <p className="font-board mt-0.5 text-[10px] text-[#6b7b84]">{formatArguments(entry.arguments)}</p>
                         </div>
                       ))}
                     </div>
@@ -139,29 +139,29 @@ export default function ChatPanel({ trip }: ChatPanelProps) {
                 )}
               </div>
             ))}
-            {isSending && <p className="text-sm text-[#6d756e]">TravelPilot is checking the itinerary...</p>}
+            {isSending && <p className="text-sm text-[#52656f]">TravelPilot is checking the itinerary...</p>}
           </div>
-          {error && <p className="mt-3 text-sm text-[#9b3f2d]">{error}</p>}
+          {error && <p className="mt-3 text-sm text-[var(--cancel-red)]">{error}</p>}
           <form onSubmit={handleSubmit} className="mt-6 flex gap-3">
             <input
               value={draft}
               onChange={(event) => setDraft(event.target.value)}
               placeholder="Ask about your itinerary..."
-              className="h-12 min-w-0 flex-1 rounded-full border border-[#c8c0b1] bg-[#fbf8f2] px-5 text-sm outline-none transition placeholder:text-[#9a9b92] focus:border-[#a05a2c]"
+              className="h-12 min-w-0 flex-1 border border-[var(--rail-rule)] bg-white px-5 text-sm outline-none placeholder:text-[#7b8990]"
               aria-label="Ask TravelPilot a question"
             />
             <button
               type="submit"
               disabled={isSending || !draft.trim()}
-              className="h-12 rounded-full bg-[#b65f35] px-5 text-sm font-bold text-white transition hover:bg-[#994b28] disabled:cursor-not-allowed disabled:opacity-50"
+              className="h-12 rounded-sm bg-[var(--rail-blue)] px-5 text-sm font-bold text-white transition hover:bg-[#244a67] disabled:cursor-not-allowed disabled:opacity-50"
             >
               Ask
             </button>
           </form>
         </div>
 
-        <aside className="border-t border-[#d7d0c2] pt-6 lg:border-l lg:border-t-0 lg:pl-7 lg:pt-0">
-          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#6d756e]">Try a question</p>
+        <aside className="border-t border-[var(--rail-rule)] pt-6 lg:border-l lg:border-t-0 lg:pl-7 lg:pt-0">
+          <p className="text-sm font-semibold text-[var(--rail-blue)]">Try a question</p>
           <div className="mt-4 space-y-2">
             {sampleQuestions.map((question) => (
               <button
@@ -169,7 +169,7 @@ export default function ChatPanel({ trip }: ChatPanelProps) {
                 type="button"
                 onClick={() => void sendMessage(question)}
                 disabled={isSending}
-                className="block w-full rounded-xl border border-[#d7d0c2] bg-[#fbf8f2] px-4 py-3 text-left text-sm text-[#4c584f] transition hover:border-[#a05a2c] hover:text-[#17221d] disabled:cursor-wait disabled:opacity-60"
+                className="block w-full border border-[var(--rail-rule)] bg-white px-4 py-3 text-left text-sm text-[var(--rail-ink)] transition hover:border-[var(--ticket-brass)] disabled:cursor-wait disabled:opacity-60"
               >
                 {question}
               </button>

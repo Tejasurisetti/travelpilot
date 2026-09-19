@@ -1,9 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  background: #f6f1e8;
-  color: #17221d;
-  font-family: Georgia, "Times New Roman", serif;
+  --rail-blue: #12304a;
+  --chart-white: #f4f6f2;
+  --platform-yellow: #e8b339;
+  --ticket-brass: #b87932;
+  --cancel-red: #b93632;
+  --rail-ink: #26333b;
+  --rail-rule: #b9c4c8;
+  background: var(--chart-white);
+  color: var(--rail-ink);
+  font-family: "IBM Plex Sans", Arial, sans-serif;
 }
 
 * {
@@ -18,4 +25,73 @@ body {
 button,
 input {
   font: inherit;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+summary:focus-visible {
+  outline: 3px solid var(--platform-yellow);
+  outline-offset: 3px;
+}
+
+.font-signage {
+  font-family: "Roboto Slab", Georgia, serif;
+}
+
+.font-board {
+  font-family: "IBM Plex Mono", "Courier New", monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.ticket-stub {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--rail-rule);
+  border-left: 5px solid var(--ticket-brass);
+  border-radius: 0.25rem 0.9rem 0.9rem 0.25rem;
+  background: #ffffff;
+  box-shadow: 0 4px 0 rgba(18, 48, 74, 0.08);
+}
+
+.ticket-stub::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 4.5rem;
+  border-top: 1px dashed var(--rail-rule);
+}
+
+.ticket-stub::before {
+  content: "";
+  position: absolute;
+  left: -0.55rem;
+  top: 50%;
+  width: 1.05rem;
+  height: 1.05rem;
+  transform: translateY(-50%);
+  border: 1px solid var(--rail-rule);
+  border-radius: 50%;
+  background: var(--chart-white);
+}
+
+.ticket-transport {
+  border-left-color: var(--rail-blue);
+  border-radius: 0.25rem;
+}
+
+.ticket-stay {
+  border-left-color: var(--platform-yellow);
+  border-radius: 1.1rem 0.25rem 1.1rem 0.25rem;
+}
+
+.departure-flip {
+  animation: departure-flip 520ms ease-out 1;
+}
+
+@keyframes departure-flip {
+  0% { transform: perspective(420px) rotateX(-90deg); opacity: 0; }
+  60% { transform: perspective(420px) rotateX(12deg); opacity: 1; }
+  100% { transform: perspective(420px) rotateX(0); opacity: 1; }
 }

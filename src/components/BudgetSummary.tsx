@@ -33,50 +33,50 @@ export default function BudgetSummary({ trip, selectedDate }: BudgetSummaryProps
   }));
 
   return (
-    <aside className="border-t border-[#d7d0c2] pt-6 lg:border-l lg:border-t-0 lg:pl-7 lg:pt-0">
+    <aside className="border-t border-[var(--rail-rule)] pt-6 lg:border-l lg:border-t-0 lg:pl-7 lg:pt-0">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#a05a2c]">Trip economics</p>
-          <h2 className="mt-2 font-serif text-2xl text-[#17221d]">Budget pulse</h2>
+          <p className="text-sm font-semibold text-[var(--ticket-brass)]">Trip economics</p>
+          <h2 className="font-signage mt-2 text-2xl text-[var(--rail-blue)]">Budget pulse</h2>
         </div>
-        <span className="rounded-full bg-[#e8efe7] px-3 py-1 text-xs font-semibold text-[#386044]">
+        <span className="rounded-sm border border-[#9cbaaa] bg-[#e5efe9] px-3 py-1 text-xs font-semibold text-[#245b46]">
           {remaining >= 0 ? "On track" : "Over budget"}
         </span>
       </div>
 
-      <div className="mt-6 rounded-2xl bg-[#17221d] p-5 text-[#f9f4eb]">
+      <div className="border-t-[5px] border-[var(--ticket-brass)] bg-[var(--rail-blue)] p-5 text-white">
         <div className="flex items-end justify-between gap-3">
           <div>
-            <p className="text-xs uppercase tracking-[0.14em] text-[#b9c9b7]">Total estimate</p>
-            <p className="mt-2 text-3xl font-semibold">{currency.format(total)}</p>
+            <p className="text-sm text-[#d8e3e6]">Total estimate</p>
+            <p className="font-board mt-2 text-3xl font-semibold">{currency.format(total)}</p>
           </div>
-          <p className="text-right text-xs text-[#b9c9b7]">of {currency.format(trip.budget)} budget</p>
+          <p className="font-board text-right text-xs text-[#d8e3e6]">of {currency.format(trip.budget)} budget</p>
         </div>
-        <div className="mt-5 h-2 overflow-hidden rounded-full bg-[#3b4a40]">
-          <div className="h-full rounded-full bg-[#efb366]" style={{ width: `${percentUsed}%` }} />
+        <div className="mt-5 h-4 border border-[#d8e3e6] bg-[#274965] p-0.5">
+          <div className="h-full bg-[var(--platform-yellow)]" style={{ width: `${percentUsed}%` }} />
         </div>
-        <p className="mt-3 text-sm text-[#d7e1d5]">
+        <p className="font-board mt-3 text-sm text-[#d8e3e6]">
           {remaining >= 0
             ? `${currency.format(remaining)} remaining`
             : `${currency.format(Math.abs(remaining))} over your limit`}
         </p>
       </div>
 
-      <div className="mt-6 border-b border-[#d7d0c2] pb-5">
-        <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#6d756e]">
-          {day ? `Selected day · ${day.date}` : "Selected day"}
+      <div className="mt-6 border-b border-[var(--rail-rule)] pb-5">
+        <p className="text-sm text-[#52656f]">
+          {day ? `Selected day: ${day.date}` : "Selected day"}
         </p>
         <div className="mt-3 flex items-end justify-between">
-          <span className="text-lg font-semibold text-[#17221d]">Daily estimate</span>
-          <span className="font-serif text-2xl text-[#17221d]">{currency.format(dailyTotal)}</span>
+          <span className="font-signage text-lg text-[var(--rail-blue)]">Daily estimate</span>
+          <span className="font-board text-2xl text-[var(--rail-blue)]">{currency.format(dailyTotal)}</span>
         </div>
       </div>
 
       <div className="mt-5 space-y-4">
         {categoryTotals.map(({ category, amount }) => (
           <div key={category} className="flex items-center justify-between gap-4 text-sm">
-            <span className="capitalize text-[#6d756e]">{category}</span>
-            <span className="font-semibold text-[#17221d]">{currency.format(amount)}</span>
+            <span className="capitalize text-[#52656f]">{category}</span>
+            <span className="font-board font-semibold text-[var(--rail-blue)]">{currency.format(amount)}</span>
           </div>
         ))}
       </div>
